@@ -60,7 +60,7 @@ pub fn (mut app App) update_user(user_id int) vweb.Result {
 	return app.json(res)
 }
 
-['/api/users/count'; get]
+['/api/count/users'; get]
 pub fn (mut app App) users_count() vweb.Result {
 	count := app.get_users_count() or { 0 }
 
