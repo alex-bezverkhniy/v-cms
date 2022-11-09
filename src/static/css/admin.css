@@ -5,3 +5,19 @@
 .hide {
     display: none;
 }
+
+.sm-scroll {
+    width: 100%;
+}
+table {
+    width: 100%;
+}
+
+@media (max-width: 48em) {
+    .sm-scroll {
+        overflow:auto;        
+    }
+    .sm-scroll table {
+        width: 40em;
+    }
+}
