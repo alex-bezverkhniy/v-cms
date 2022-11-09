@@ -51,6 +51,29 @@
         }
     }
     
+    function toggleHideElement(el) {
+        if (el) {
+            var element = {};
+            if (typeof el == "string") {
+                element = document.getElementById(el)
+                if (element == null) {
+                    element = document.querySelector(el)
+                }
+            } else {
+                element = el
+            }
+            if (element != null) {
+                const className = 'hide';            
+                if (element.classList.contains(className)) {
+                    element.classList.remove(className);
+                } else {
+                    element.classList.add(className);
+                }
+            }
+        }
+    }
+
+    document.toggleHideElement = toggleHideElement;
     document.addEventListener('click', handleEvent);
 
 }(this, this.document));
