@@ -13,3 +13,4 @@ v-cms
 .vscode/
 *.iml
 cms.sqlite
+*.log
