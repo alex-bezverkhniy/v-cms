@@ -6,7 +6,8 @@
         return {
             layout: document.getElementById('layout'),
             menu: document.getElementById('menu'),
-            menuLink: document.getElementById('menuLink')
+            menuLink: document.getElementById('menuLink'),
+            mainTitle: document.getElementById('mainTitle')
         };
     }
 
@@ -36,6 +37,7 @@
         toggleClass(elements.layout, active);
         toggleClass(elements.menu, active);
         toggleClass(elements.menuLink, active);
+        toggleClass(elements.mainTitle, active);
     }
     
     function handleEvent(e) {
