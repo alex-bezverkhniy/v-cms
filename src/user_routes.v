@@ -13,6 +13,14 @@ pub fn (mut app App) all_users() vweb.Result {
 	return app.json(res)
 }
 
+['/api/users/:user_id'; get]
+pub fn (mut app App) user_by_id(user_id int ) vweb.Result {	
+	res := app.get_user_by_id(user_id) or { User{} }
+	app.debug('user: $res')
+
+	return app.json(res)
+}
+
 ['/api/users/'; post]
 pub fn (mut app App) create_user() vweb.Result {	
 	u := json.decode(User, app.req.data) or {
