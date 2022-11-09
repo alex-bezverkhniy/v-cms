@@ -10,6 +10,7 @@ struct User {
 	password        string
 	salt            string
 	created_at      time.Time
+	updated_at      time.Time
 	is_registered   bool
 	is_blocked      bool
 	is_admin        bool
