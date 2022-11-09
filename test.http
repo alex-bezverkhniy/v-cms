@@ -1,3 +1,8 @@
 ### Get Users count
 
 GET http://localhost:8080/api/users/count
+
+
+### Get all Users
+
+GET http://localhost:8080/api/users/
