@@ -1,8 +1,18 @@
 ### Get Users count
-
 GET http://localhost:8080/api/users/count
 
 
 ### Get all Users
-
 GET http://localhost:8080/api/users/
+
+
+### Create new User
+POST http://localhost:8080/api/users/
+Content-Type: application/json
+
+{
+    "full_name": "full_name",
+    "username": "test",
+    "password": "test",
+    "is_admin": true
+}

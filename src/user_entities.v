@@ -6,11 +6,10 @@ struct User {
 	id              int       [primary; sql: serial]
 	full_name       string
 	username        string    [unique]
-	github_username string
 	password        string
 	salt            string
-	created_at      time.Time
-	updated_at      time.Time
+	created_at      time.Time [sql_type: 'DATETIME']
+	updated_at      time.Time [sql_type: 'DATETIME']
 	is_registered   bool
 	is_blocked      bool
 	is_admin        bool

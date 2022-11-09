@@ -1,5 +1,7 @@
 module main
 
+import json
+
 import vweb
 
 // API
@@ -13,9 +15,14 @@ pub fn (mut app App) all_users() vweb.Result {
 
 ['/api/users/'; post]
 pub fn (mut app App) create_user() vweb.Result {	
+	u := json.decode(User, app.req.data) or {
+		return app.response_with_error('Failed to decode json, error: $err', 400, err)
+	}
 	
-	res := app.get_all_users() or { []User{} }
-	app.debug('all_users: $res')
+
+	res := app.create_new_user(u) or { 
+		return app.response_with_error('Cannot create new User', 503, err)
+	}
 
 	return app.json(res)
 }
