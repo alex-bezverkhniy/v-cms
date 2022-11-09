@@ -1,0 +1,41 @@
+@include 'header.html'
+        <div id="main">
+            <div class="header">
+                <h1>Users</h1>
+                <h2>Users dashboard</h2>
+            </div>
+    
+            <div class="content">
+                <h2 class="content-subhead">List of users</h2>
+                <table class="pure-table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for i, user in users_list 
+                        <tr>
+                            <td>${i+1}</td>
+                            <td>${user.username}</td>
+                            <td>${user.created_at}</td>
+                            <td>${user.updated_at}</td>
+                            <td>
+                                @if !user.is_blocked 
+                                <span>active</span> 
+                                @else 
+                                <span>blocked</span> 
+                                @end
+                            </td>
+                        </tr>
+                        @end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+@include 'footer.html'
