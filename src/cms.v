@@ -38,7 +38,10 @@ fn new_app() &App {
 		started_at: time.now().unix
 	}
 
+	app.handle_static('src/static', true)
 	app.create_tables()
+	
+	app.setup_logger()
 
 	return app
 }
@@ -47,4 +50,31 @@ fn (mut app App) create_tables() {
 	sql app.db {
 		create table User
 	}
+}
+
+fn (mut app App) setup_logger() {
+	create_directory_if_not_exists('logs')
+	
+	app.logger.set_level(.debug)
+
+	app.logger.set_full_logpath('./logs/log_${time.now().ymmdd()}.log')
+	app.logger.log_to_console_too()
+}
+
+pub fn (mut app App) warn(msg string) {
+	app.logger.warn(msg)
+
+	app.logger.flush()
+}
+
+pub fn (mut app App) info(msg string) {
+	app.logger.info(msg)
+
+	app.logger.flush()
+}
+
+pub fn (mut app App) debug(msg string) {
+	app.logger.debug(msg)
+
+	app.logger.flush()
 }
