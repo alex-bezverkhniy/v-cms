@@ -57,18 +57,30 @@ pub fn (mut app App) get_user_by_id(id int) ?User {
 	return res
 }
 
-//TODO
-pub fn (mut app App) update_user(id int, u User) ?User {	
-	hashed_password := bcrypt.generate_from_password(u.password.bytes(), bcrypt.min_cost) or {
-		return error('Cannot create new User: $err')
+
+pub fn (mut app App) update_user_by_id(id int, u User) ?User {	
+	app.debug('Update user: id: $id, data: $u')
+	old_user := app.get_user_by_id(id) or {
+		return error('Cannot update User: $err')
+	}
+
+	if old_user.id == 0 {
+		return error('User not found')
+	}
+	
+
+	mut hashed_password := old_user.password 
+	if u.password != "" {
+		hashed_password = bcrypt.generate_from_password(u.password.bytes(), bcrypt.min_cost) or {
+			return error('Cannot update User: $err')
+		}	
 	}
 
 	new_user := User {
     	full_name: u.full_name
 		username: u.username		
 		password: hashed_password	
-		created_at: time.now()
-		updated_at:	time.now()
+		updated_at: time.now()
 		salt: generate_salt()
 		is_registered: u.is_registered
 		is_blocked: u.is_blocked
@@ -76,13 +88,13 @@ pub fn (mut app App) update_user(id int, u User) ?User {
 	}
 
 	sql app.db {
-		insert new_user into User
+		update User set full_name = new_user.full_name, username = new_user.username, password = hashed_password, updated_at = new_user.updated_at, salt = new_user.salt, is_registered = new_user.is_registered, is_blocked = new_user.is_blocked, is_admin = new_user.is_admin  where id == id
 	} 
 
 	res := sql app.db {
 		select from User where username == u.username limit 1
 	} or {
-		return error('Cannot create new User: $err')
+		return error('Cannot update User: $err')
 	}
 
 	return res

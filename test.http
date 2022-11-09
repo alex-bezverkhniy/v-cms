@@ -6,7 +6,7 @@ GET http://localhost:8080/api/users/count
 GET http://localhost:8080/api/users/
 
 ### Get User by id
-GET http://localhost:8080/api/users/1
+GET http://localhost:8080/api/users/2
 
 
 ### Create new User
@@ -18,4 +18,15 @@ Content-Type: application/json
     "username": "test",
     "password": "test",
     "is_admin": true
+}
+
+### Update new User
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+    "full_name": "full_name",
+    "username": "test",
+    "password": "test",
+    "is_admin": false
 }
