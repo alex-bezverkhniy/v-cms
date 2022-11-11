@@ -5,7 +5,7 @@
                 <h2>Users dashboard</h2>
             </div>
     
-            <div class="content">
+            <div class="content" id="list">
                 <h2 class="content-subhead">List of users</h2>
                 <div class="sm-scroll">
                     <table class="pure-table">
@@ -37,6 +37,37 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="content" id="form">
+                
+                <form class="pure-form pure-form-stacked">
+                    <fieldset>
+                        <legend>
+                            <h2 class="content-subhead">Create user</h2>
+                        </legend>
+                        <label for="full_name">Full Name</label>
+                        <input type="text" id="full_name" placeholder="full_name" class="pure-input-1"/>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="username" class="pure-input-1"/>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="password" class="pure-input-1"/>
+                        
+                        <label for="is_registered" class="pure-checkbox">
+                            <input type="checkbox" id="is_registered"/> Is Registered
+                        </label>
+                        
+                        <label for="is_blocked" class="pure-checkbox">
+                            <input type="checkbox" id="is_blocked"/> Is Blocked                        
+                        </label>
+                        <label for="is_admin" class="pure-checkbox">
+                            <input type="checkbox" id="is_admin"/> Is Admin
+                        </label>
+                        <label for="email">Email</label>
+                        <input class="pure-input-1" type="email" id="email" placeholder="Email" />
+
+                        <button type="submit" class="pure-button pure-button-primary">Sign in</button>
+                    </fieldset>
+                </form>
             </div>
         </div>
 

@@ -1,3 +1,15 @@
+.header {
+    border: 0;
+}
+.home-menu {
+    background-color: #ccc;
+    opacity: 50%;
+    border-bottom: 1px solid #eee;
+}
+.home-menu:hover {
+    opacity: 100%;
+    background-color: #ccc;
+}
 .wide {
     width: 100%;
 }
@@ -13,7 +25,25 @@ table {
     width: 100%;
 }
 
+#form input.pure-input-1 {
+    border: 0px;
+    border-radius: 0%;
+    box-shadow: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2em;
+}
+
+#form input.pure-input-1:hover, #form input.pure-input-1:focus {
+    border: 0px;
+    border-radius: 0%;
+    box-shadow: none;
+    border-bottom: 1px solid #555;
+}
+
 @media (max-width: 48em) {
+    .home-menu {    
+        opacity: 80%;        
+    }
     .sm-scroll {
         overflow:auto;        
     }
