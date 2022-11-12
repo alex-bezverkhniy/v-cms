@@ -14,8 +14,8 @@ POST http://localhost:8080/api/users/
 Content-Type: application/json
 
 {
-    "full_name": "full_name",
-    "username": "test",
+    "full_name": "alex",
+    "username": "alex",
     "password": "test",
     "is_admin": true
 }

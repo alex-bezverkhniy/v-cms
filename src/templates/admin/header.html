@@ -1,26 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @css '/css/pure-min.css'
-    @css '/css/side-menu.css'
-    @css '/css/admin.css'
-    <title>Admin</title>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    @css '/css/pico.min.css'
+    @css '/css/styles.css'
 </head>
 <body>
-    <div class="header">
-        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-            <a class="pure-menu-heading" href="/admin/" id="mainTitle">Admin</a>
-    
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item pure-menu-selected"><a href="/admin/" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Login</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-            </ul>
-        </div>
-    </div>
-    <div id="layout">
-        
-        @include 'side-menu.html'
+    @include 'top-menu.html'
+    @include 'side-menu.html'
