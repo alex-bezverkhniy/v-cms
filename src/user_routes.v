@@ -79,8 +79,8 @@ pub fn (mut app App) admin_users() vweb.Result {
 
 	if is_edit_user {
 		id := user_id.int()
-		app.debug('edit user: $edit_user')
 		edit_user = app.get_user_by_id(id) or {User{}} 
+		app.debug('edit user: $edit_user')
 	}
 
 
@@ -88,25 +88,47 @@ pub fn (mut app App) admin_users() vweb.Result {
 }
 
 ['/admin/users'; post]
-pub fn (mut app App) admin_edit_user(id int, full_name string, username string, password string, email string) vweb.Result {
+pub fn (mut app App) admin_edit_user() vweb.Result {
 
-	user := User{full_name: full_name, username: username, password: password, is_registered: false, is_blocked: false, is_admin: false, email: email }
-	
+	id := app.form['id']
+	full_name :=  app.form['full_name']
+	username :=  app.form['username']
+	password :=  app.form['password']
+	email :=  app.form['email']
+	is_registered := 'is_registered' in app.form
+	is_blocked := 'is_blocked' in app.form
+	is_admin := 'is_admin' in app.form
+	user_id := id.int()
+
 	//TODO: Validate fields
+
+	user := User{
+		id: user_id,
+		full_name: full_name, 
+		username: username, 
+		password: password, 
+		is_registered: is_registered, 
+		is_blocked: is_blocked, 
+		is_admin: is_admin, 
+		email: email 
+		}
 	
-	if id != 0 {
+	app.debug('user_id: $user_id')
+	
+	if user_id != 0 {
 		app.info('update user')
 
-		app.update_user_by_id(id, user) or {
-			app.error('cannot update user')
+		app.update_user_by_id(user_id, user) or {
+			app.error('cannot update user: $user')
 		}
 
 	} else { 
-		app.info('create new user')
+		app.info('create new user: $user')
 
 		app.create_new_user(user) or {
 			app.error('cannot create new user')
 		}
 	}
+
     return app.redirect('/admin/users')
 }

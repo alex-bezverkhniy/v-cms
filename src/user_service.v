@@ -61,7 +61,6 @@ pub fn (mut app App) get_user_by_id(id int) ?User {
 
 
 pub fn (mut app App) update_user_by_id(id int, u User) ?User {	
-	app.debug('Update user: id: $id, data: $u')
 	old_user := app.get_user_by_id(id) or {
 		return error('Cannot update User: $err')
 	}
@@ -79,6 +78,7 @@ pub fn (mut app App) update_user_by_id(id int, u User) ?User {
 	}
 
 	new_user := User {
+		id: id
     	full_name: u.full_name
 		username: u.username		
 		password: hashed_password
@@ -89,6 +89,8 @@ pub fn (mut app App) update_user_by_id(id int, u User) ?User {
 		is_blocked: u.is_blocked
 		is_admin: u.is_admin
 	}
+
+	app.debug('update user: $new_user')
 
 	sql app.db {
 		update User set full_name = new_user.full_name, username = new_user.username, password = hashed_password, updated_at = new_user.updated_at, email = new_user.email, avatar = new_user.avatar, is_registered = new_user.is_registered, is_blocked = new_user.is_blocked, is_admin = new_user.is_admin  where id == id

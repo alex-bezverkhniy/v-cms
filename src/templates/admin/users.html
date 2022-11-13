@@ -78,9 +78,40 @@
             <input type="password" id="password" name="password" placeholder="Password" required value="${edit_user.password}" />
         </label>
 
-        <label for="email">Email address</label>
-        <input type="email" id="email" name="email" placeholder="Email address" value="${edit_user.email}" required />
+        <label for="email">
+            Email address
+            <input type="email" id="email" name="email" placeholder="Email address" value="${edit_user.email}" required />
+        </label>
+        <fieldset>
+            <label for="is_admin">
+                <input type="checkbox" id="is_admin" name="is_admin" placeholder="is admin" role="switch" 
+                @if edit_user.is_admin
+                    checked
+                @end
+                />
+                Is Admin
+            </label>
 
+            <label for="is_registered">
+                <input type="checkbox" id="is_registered" name="is_registered" placeholder="is admin" role="switch" 
+                @if edit_user.is_registered
+                    checked
+                @end                
+                />
+                Is Registered
+            </label>
+
+            <label for="is_blocked">
+                <input type="checkbox" id="is_blocked" name="is_blocked" placeholder="is admin" role="switch" 
+                @if edit_user.is_blocked
+                    checked
+                @end                 
+                />
+                Is Blocked
+            </label>
+        </fieldset>
+        
+        
         <!-- Buttons -->
         <button type="submit">Save</button>
     </form>
