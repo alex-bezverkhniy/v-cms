@@ -11,10 +11,61 @@ pub fn (mut app App) get_users_count() ?int {
 	return res
 }
 
+// deprecated
 pub fn (mut app App) get_all_users() ?[]User {
 	res := sql app.db {
 		select from User
 	} or { []User{} }
+
+	return res
+}
+
+pub fn (mut app App) get_all_users_query(order_by string, order_type string) ?[]User {
+	o_by := if order_by == "" { "id"} else {order_by}
+	o_type := if order_type == "" {"desc"} else {order_type}
+
+	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` order by $o_by $o_type'
+	app.debug('exec sql: $query')
+
+	rows, _ := app.db.exec(query)
+
+	app.debug('selected: ${rows} ')
+
+	mut res := []User
+
+	for row in rows {
+		vals := row.vals
+
+		id := vals[0].int()
+		full_name := vals[1]
+		username := vals[2]
+		password := vals[3]
+		salt := vals[4]
+		email := vals[5]
+		avatar := vals[6]
+		created_at := time.unix(vals[7].int())
+		updated_at := time.unix(vals[8].int())
+		is_registered := vals[9]
+		is_blocked := vals[10]
+		is_admin := vals[11]
+
+		u := User{
+			id: id
+			full_name: full_name
+			username: username
+			password: password
+			salt: salt
+			email: email
+			avatar: avatar
+			created_at: created_at
+			updated_at: updated_at
+			is_registered: is_registered == 'true'
+			is_blocked: is_blocked == 'true'
+			is_admin: is_admin == 'true'
+		}
+
+		res << u
+	}
 
 	return res
 }
