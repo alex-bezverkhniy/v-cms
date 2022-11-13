@@ -34,6 +34,9 @@ details[open] > summary {
 #list details .itemDetails ul>li {
   list-style: none;
 }
+#list a[data-tooltip="blocked"] {
+  color: var(--del-color);
+}
 .container {
   padding-top: 4em;
   padding-left: 2em;

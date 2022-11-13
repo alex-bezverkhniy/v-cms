@@ -27,7 +27,6 @@
                                     <li><b>username:</b> <span>${user.username}</span></li>
                                     <li><b>fullname:</b> ${user.full_name}</li>
                                     <li><b>email:</b> ${user.email}</li>
-                                    <li><b>email:</b> ${user.email}</li>
                                     <li><b>is_registered:</b> ${user.is_registered}</li>
                                     <li><b>is_blocked:</b> ${user.is_blocked}</li>
                                     <li><b>is_admin:</b> ${user.is_admin}</li>
@@ -42,9 +41,18 @@
                     <td>${user.updated_at}</td>
                     <td>
                         @if !user.is_blocked
-                        <span>active</span>
+                        <a data-tooltip="active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                              </svg>
+                        </a>
                         @else
-                        <span>blocked</span>
+                        <a data-tooltip="blocked">
+                            <svg  width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                <circle cy="8" cx="8" r="6.25"/>
+                                <line x1="4.25" x2="12.25" y1="11.75" y2="3.75"/>
+                                </svg>
+                        </a >
                         @end
                     </td>
                 </tr>
