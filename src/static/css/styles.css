@@ -1,3 +1,39 @@
+#list details {
+  border: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+#list details summary {
+  padding: 0.2em;
+  /* font-size:  var(--font-size); */
+}
+details[open] > summary {
+  margin-bottom: .5em;
+}
+#list details .itemDetails {
+  position: absolute;
+  border: 1px solid var(--form-element-border-color);
+  background-color: var(--card-background-color);
+  width: 20em;
+  max-width: 30em;
+  /* margin: var(--block-spacing-vertical) 0; */
+  padding: 1em;
+  border-radius: var(--border-radius);
+  background: var(--card-background-color);
+  box-shadow: var(--card-box-shadow);
+}
+#list details .itemDetails h5 {
+  margin-bottom: .5em;
+}
+#list details .itemDetails ul {
+  margin-left: 0;
+  padding: 0;
+  margin-bottom: 0;
+}
+#list details .itemDetails ul>li {
+  list-style: none;
+}
 .container {
   padding-top: 4em;
   padding-left: 2em;

@@ -27,7 +27,9 @@ pub fn (mut app App) create_new_user(u User) ?User {
 	new_user := User {
     	full_name: u.full_name
 		username: u.username		
-		password: hashed_password	
+		password: hashed_password
+		email: u.email
+		avatar: u.avatar	
 		created_at: time.now()
 		updated_at:	time.now()
 		salt: generate_salt()
@@ -79,16 +81,17 @@ pub fn (mut app App) update_user_by_id(id int, u User) ?User {
 	new_user := User {
     	full_name: u.full_name
 		username: u.username		
-		password: hashed_password	
-		updated_at: time.now()
-		salt: generate_salt()
+		password: hashed_password
+		email: u.email
+		avatar: u.avatar	
+		updated_at:	time.now()
 		is_registered: u.is_registered
 		is_blocked: u.is_blocked
 		is_admin: u.is_admin
 	}
 
 	sql app.db {
-		update User set full_name = new_user.full_name, username = new_user.username, password = hashed_password, updated_at = new_user.updated_at, salt = new_user.salt, is_registered = new_user.is_registered, is_blocked = new_user.is_blocked, is_admin = new_user.is_admin  where id == id
+		update User set full_name = new_user.full_name, username = new_user.username, password = hashed_password, updated_at = new_user.updated_at, email = new_user.email, avatar = new_user.avatar, is_registered = new_user.is_registered, is_blocked = new_user.is_blocked, is_admin = new_user.is_admin  where id == id
 	} 
 
 	res := sql app.db {

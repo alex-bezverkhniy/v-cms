@@ -69,8 +69,44 @@ pub fn (mut app App) users_count() vweb.Result {
 
 // Pages ////////////////////////////////////////
 
-['/admin/users']
+['/admin/users'; get]
 pub fn (mut app App) admin_users() vweb.Result {
 	users_list := app.get_all_users() or {[]User{}} 
+
+	user_id := app.query['user_id']
+	mut edit_user := User {}
+	is_edit_user := user_id != ""
+
+	if is_edit_user {
+		id := user_id.int()
+		app.debug('edit user: $edit_user')
+		edit_user = app.get_user_by_id(id) or {User{}} 
+	}
+
+
     return $vweb.html()
+}
+
+['/admin/users'; post]
+pub fn (mut app App) admin_edit_user(id int, full_name string, username string, password string, email string) vweb.Result {
+
+	user := User{full_name: full_name, username: username, password: password, is_registered: false, is_blocked: false, is_admin: false, email: email }
+	
+	//TODO: Validate fields
+	
+	if id != 0 {
+		app.info('update user')
+
+		app.update_user_by_id(id, user) or {
+			app.error('cannot update user')
+		}
+
+	} else { 
+		app.info('create new user')
+
+		app.create_new_user(user) or {
+			app.error('cannot create new user')
+		}
+	}
+    return app.redirect('/admin/users')
 }

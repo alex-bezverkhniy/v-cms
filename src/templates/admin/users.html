@@ -1,11 +1,12 @@
 @include 'header.html'
-<article class="container">
+<article class="container" id="list">
     <h2>Users list</h2>
     <figure>
         <table>
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Full Name</th>
                     <th>Username</th>
                     <th>Created at</th>
                     <th>Updated at</th>
@@ -16,7 +17,27 @@
                 @for i, user in users_list
                 <tr>
                     <td>${i+1}</td>
-                    <td>${user.username}</td>
+                    <td>
+                        <details>
+                            <summary role="button" class="contrast">${user.full_name}</summary>
+                            <div class="itemDetails">
+                                <h5>User details:</h5>
+                                <ul>
+                                    <li><b>id:</b> ${user.id}</li>
+                                    <li><b>username:</b> <span>${user.username}</span></li>
+                                    <li><b>fullname:</b> ${user.full_name}</li>
+                                    <li><b>email:</b> ${user.email}</li>
+                                    <li><b>email:</b> ${user.email}</li>
+                                    <li><b>is_registered:</b> ${user.is_registered}</li>
+                                    <li><b>is_blocked:</b> ${user.is_blocked}</li>
+                                    <li><b>is_admin:</b> ${user.is_admin}</li>
+                                    <li><b>created_at:</b> ${user.created_at}
+                                    <li><b>updated_at:</b> ${user.updated_at}  
+                                </ul>
+                            </div>
+                        </details>
+                    </td>
+                    <td><a href="/admin/users/?user_id=${user.id}#form">${user.username}</a></td>
                     <td>${user.created_at}</td>
                     <td>${user.updated_at}</td>
                     <td>
@@ -34,26 +55,31 @@
         </div>
     </figure>
 </article>
-<article class="container">
-    <h2 id="users">New User</h2>
-    <form>
-        <label for="firstname">
-            First name
-            <input type="text" id="firstname" name="firstname" placeholder="First name" required />
+<article class="container" id="form">
+    @if is_edit_user 
+    <h2>Edit User</h2>
+    @else
+    <h2>New User</h2>
+    @end
+    <form action="/admin/users" method="post">
+        <input type="hidden" id="id" name="id" value="${edit_user.id}">
+        <label for="username">
+            Username
+            <input type="text" id="username" name="username" placeholder="Username" required  value="${edit_user.username}"/>
         </label>
 
-        <label for="lastname">
-            Last name
-            <input type="text" id="lastname" name="lastname" placeholder="Last name" required />
+        <label for="full_name">
+            Full name
+            <input type="text" id="full_name" name="full_name" placeholder="First name" value="${edit_user.full_name}" />
         </label>
 
         <label for="password">
             Password
-            <input type="password" id="password" name="password" placeholder="Password" required />
+            <input type="password" id="password" name="password" placeholder="Password" required value="${edit_user.password}" />
         </label>
 
         <label for="email">Email address</label>
-        <input type="email" id="email" name="email" placeholder="Email address" required />
+        <input type="email" id="email" name="email" placeholder="Email address" value="${edit_user.email}" required />
 
         <!-- Buttons -->
         <button type="submit">Save</button>
