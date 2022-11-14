@@ -41,6 +41,11 @@
 #list th a {
   display: inline-flex;
 }
+
+#list a .paginationBtn {
+  max-width: 3em;
+}
+
 .container {
   padding-top: 4em;
   padding-left: 2em;

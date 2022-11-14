@@ -4,6 +4,9 @@ import json
 
 import vweb
 
+const (
+	default_page_size = 10
+)
 
 // API //////////////////////////////////////////
 ['/api/users/'; get]
@@ -14,7 +17,9 @@ pub fn (mut app App) all_users() vweb.Result {
 		app.query['order_type'],
 		app.query['filter_by'],
 		app.query['filter_by_op'],
-		app.query['filter_by_val']
+		app.query['filter_by_val'],
+		app.query['page_size'].int(),
+		app.query['page_num'].int(),
 	) or { []User{} }
 	app.debug('all_users: $res')
 
@@ -83,7 +88,9 @@ pub fn (mut app App) admin_users() vweb.Result {
 		app.query['order_type'],
 		app.query['filter_by'],
 		app.query['filter_by_op'],
-		app.query['filter_by_val']
+		app.query['filter_by_val'],
+		app.query['page_size'].int(),
+		app.query['page_num'].int(),
 	) or {[]User{}} 
 
 	user_id := app.query['user_id']
@@ -100,7 +107,9 @@ pub fn (mut app App) admin_users() vweb.Result {
 	filter_by := app.query['filter_by']
 	filter_by_op := app.query['filter_by_op']
 	filter_by_val := app.query['filter_by_val']
-
+	page_size := if app.query['page_size'].int() == 0 {default_page_size} else {app.query['page_size'].int()}
+	page_num := if app.query['page_num'].int() == 0 {1} else {app.query['page_num'].int()}
+	total_rows := app.get_users_count() or {0}
 
     return $vweb.html()
 }

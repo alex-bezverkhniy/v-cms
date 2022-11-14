@@ -37,7 +37,8 @@ pub fn (mut app App) get_all_users() ?[]User {
 
 pub fn (mut app App) get_all_users_query(
 	order_by string, order_type string,
-	filter_by string, filter_by_op string, filter_by_val string
+	filter_by string, filter_by_op string, filter_by_val string,
+	page_size int, page_num int
 ) ?[]User {	
 	
 	order_types_list := ['asc', 'desc']
@@ -56,7 +57,12 @@ app.debug('$filter_by_val = ${check_has_sql_injections(filter_by_val)}')
 		where = 'where $f_by ${operations[f_by_op]} $f_by_val'
 	}
 
-	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` $where order by $o_by $o_type'
+	mut pagination := ""
+	if page_size > 0 && page_num > 0 {
+		pagination = 'limit $page_size offset ${page_num - 1}'
+	}
+
+	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` $where order by $o_by $o_type $pagination'
 	app.debug('exec sql: $query')
 
 	rows, _ := app.db.exec(query)

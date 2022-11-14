@@ -1,6 +1,9 @@
 @include 'header.html'
 <article class="container" id="list">
-    <h2>Users list</h2>
+    <hgroup>
+        <h2>Users list</h2>
+        <h3>Total rows: ${total_rows}</h3>
+    </hgroup>    
     <details>
         <summary  role="button">            
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
@@ -194,8 +197,35 @@
                 </tr>
                 @end
             </tbody>
+            <tfoot>
+                <div class="grid">
+                    <span><b>page size:</b> <code>$page_size</code></span>
+                    <span><b>page number:</b> <code>$page_num</code></span>
+                    <span><b>total rows selected:</b> <code>${users_list.len}</code></span>
+                </div>
+            </tfoot>
         </table>
-        </div>
+        <div class="grid">
+            <a href="/admin/users?page_size=${page_size}&page_num=${page_num-1}" role="button" class="secondary"
+            @if page_num <= 1
+                disabled
+            @end
+            >                
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+                    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+                </svg>
+                prev page
+            </a>
+            <a href="/admin/users/?page_size=${page_size}&page_num=${page_num+1}"  role="button" class="secondary"
+            @if page_num >= total_rows / page_size
+                disabled
+            @end            
+            >
+                next page
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+                </svg>
+            </a>
         </div>
     </figure>
 </article>
