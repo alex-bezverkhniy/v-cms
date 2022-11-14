@@ -20,18 +20,47 @@ pub fn (mut app App) get_all_users() ?[]User {
 	return res
 }
 
-pub fn (mut app App) get_all_users_query(order_by string, order_type string) ?[]User {
-	o_by := if order_by == "" { "id"} else {order_by}
-	o_type := if order_type == "" {"desc"} else {order_type}
+pub fn (mut app App) get_all_users_query(
+	order_by string, order_type string,
+	filter_by string, filter_by_op string, filter_by_val string
+) ?[]User {	
+	
+	columns_list := ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
+	//           !=     =     >     <     >=    <=    like
+	operations := {
+		'neq': '!=', 
+		'eq': '=', 
+		'gt': '>', 
+		'lt': '<', 
+		'ge': '>=', 
+		'le': '<=', 
+		'like':'like', 
+		'in':'in'
+	}
+	order_types_list := ['asc', 'desc']
 
-	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` order by $o_by $o_type'
+	// Protect from sql injections - 
+	o_by := if order_by == "" || order_by !in columns_list { "id" } else { order_by }
+	o_type := if order_type == "" || order_type !in order_types_list {"desc"} else {order_type}
+	f_by := if filter_by !in columns_list { "" } else { filter_by }
+	f_by_op := if filter_by_op !in operations.keys() { "" } else { filter_by_op }
+	f_by_val := if check_has_sql_injections(filter_by_val) { "" } else { filter_by_val }
+
+app.debug('$filter_by_val = ${check_has_sql_injections(filter_by_val)}')
+
+	mut where := ""
+	if f_by != "" && f_by_op != "" {
+		where = 'where $f_by $f_by_op $f_by_val'
+	}
+
+	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` $where order by $o_by $o_type'
 	app.debug('exec sql: $query')
 
 	rows, _ := app.db.exec(query)
 
 	app.debug('selected: ${rows} ')
 
-	mut res := []User
+	mut res := []User{}
 
 	for row in rows {
 		vals := row.vals
@@ -68,6 +97,17 @@ pub fn (mut app App) get_all_users_query(order_by string, order_type string) ?[]
 	}
 
 	return res
+}
+
+// Move to Utils
+fn check_has_sql_injections(str string) bool {
+	restricted_keywords := ['select', 'update', 'delete', 'set', 'truncate', 'drop']
+	for w in restricted_keywords {
+		if str.to_upper().contains(w.to_upper()) {
+			return true
+		}
+	}
+	return false
 }
 
 pub fn (mut app App) create_new_user(u User) ?User {	

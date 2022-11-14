@@ -18,7 +18,11 @@ pub fn (mut app App) all_users() vweb.Result {
 pub fn (mut app App) all_usersq() vweb.Result {		
 	res := app.get_all_users_query(
 		app.query['order_by'], 
-		app.query['order_type']) or { []User{} }
+		app.query['order_type'],
+		app.query['filter_by'],
+		app.query['filter_by_op'],
+		app.query['filter_by_val']
+	) or { []User{} }
 	app.debug('all_users: $res')
 
 	return app.json(res)
@@ -83,7 +87,11 @@ pub fn (mut app App) users_count() vweb.Result {
 pub fn (mut app App) admin_users() vweb.Result {
 	users_list := app.get_all_users_query(
 		app.query['order_by'], 
-		app.query['order_type']) or {[]User{}} 
+		app.query['order_type'],
+		app.query['filter_by'],
+		app.query['filter_by_op'],
+		app.query['filter_by_val']
+	) or {[]User{}} 
 
 	user_id := app.query['user_id']
 	mut edit_user := User {}
