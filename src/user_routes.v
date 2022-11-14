@@ -94,7 +94,8 @@ pub fn (mut app App) admin_users() vweb.Result {
 		edit_user = app.get_user_by_id(id) or {User{}} 
 		app.debug('edit user: $edit_user')
 	}
-
+	order_by := app.query['order_by']
+	order_type := if app.query['order_type'] == "asc" {"desc"} else {"asc"}
 
     return $vweb.html()
 }

@@ -45,9 +45,9 @@ pub fn (mut app App) get_all_users_query(order_by string, order_type string) ?[]
 		avatar := vals[6]
 		created_at := time.unix(vals[7].int())
 		updated_at := time.unix(vals[8].int())
-		is_registered := vals[9]
-		is_blocked := vals[10]
-		is_admin := vals[11]
+		is_registered := vals[9] == '1'
+		is_blocked := vals[10] == '1'
+		is_admin := vals[11] == '1'
 
 		u := User{
 			id: id
@@ -59,9 +59,9 @@ pub fn (mut app App) get_all_users_query(order_by string, order_type string) ?[]
 			avatar: avatar
 			created_at: created_at
 			updated_at: updated_at
-			is_registered: is_registered == 'true'
-			is_blocked: is_blocked == 'true'
-			is_admin: is_admin == 'true'
+			is_registered: is_registered
+			is_blocked: is_blocked
+			is_admin: is_admin
 		}
 
 		res << u

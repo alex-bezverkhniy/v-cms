@@ -2,8 +2,8 @@
   border: 0;
   padding-bottom: 0;
   margin-bottom: 0;
+  width: 10em;
 }
-
 #list details summary {
   padding: 0.2em;
   /* font-size:  var(--font-size); */
@@ -37,6 +37,10 @@ details[open] > summary {
 #list a[data-tooltip="blocked"] {
   color: var(--del-color);
 }
+#list th a {
+  display: inline-flex;
+}
+
 .container {
   padding-top: 4em;
   padding-left: 2em;

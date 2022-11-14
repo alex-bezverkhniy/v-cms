@@ -6,11 +6,91 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
-                    <th>Status</th>
+                    <th>
+                        <a href="/admin/users/?order_by=full_name&order_type=$order_type" 
+                        @if order_by == "full_name" 
+                        class="contrast"
+                        @end
+                        >Full Name 
+                            @if order_type == "desc" && order_by == "full_name"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            @else                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            @end
+                        </a>
+                    </th>
+                    <th>                        
+                        <a href="/admin/users/?order_by=username&order_type=$order_type" 
+                        @if order_by == "username" 
+                        class="contrast"
+                        @end 
+                        >Username 
+                            @if order_type == "desc" && order_by == "username"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            @else                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            @end
+                        </a>
+                    </th>
+                    <th>
+                        <a href="/admin/users/?order_by=created_at&order_type=$order_type" 
+                        @if order_by == "created_at" 
+                        class="contrast"
+                        @end 
+                        >Created at 
+                            @if order_type == "desc" && order_by == "created_at"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            @else                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            @end
+                        </a>                        
+                    </th>
+                    <th>                        
+                        <a href="/admin/users/?order_by=updated_at&order_type=$order_type" 
+                        @if order_by == "updated_at" 
+                        class="contrast"
+                        @end 
+                        >Updated at 
+                            @if order_type == "desc" && order_by == "updated_at"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            @else                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            @end
+                        </a>                         
+                    </th>
+                    <th>                        
+                        <a href="/admin/users/?order_by=is_blocked&order_type=$order_type" 
+                        @if order_by == "is_blocked" 
+                        class="contrast"
+                        @end 
+                        >Status 
+                            @if order_type == "desc" && order_by == "is_blocked"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            @else                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            @end
+                        </a>                        
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +181,7 @@
             </label>
 
             <label for="is_registered">
-                <input type="checkbox" id="is_registered" name="is_registered" placeholder="is admin" role="switch" 
+                <input type="checkbox" id="is_registered" name="is_registered" placeholder="is regestered" role="switch" 
                 @if edit_user.is_registered
                     checked
                 @end                
@@ -110,7 +190,7 @@
             </label>
 
             <label for="is_blocked">
-                <input type="checkbox" id="is_blocked" name="is_blocked" placeholder="is admin" role="switch" 
+                <input type="checkbox" id="is_blocked" name="is_blocked" placeholder="is blocker" role="switch" 
                 @if edit_user.is_blocked
                     checked
                 @end                 
