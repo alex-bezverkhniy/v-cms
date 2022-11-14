@@ -22,6 +22,7 @@
   border-radius: var(--border-radius);
   background: var(--card-background-color);
   box-shadow: var(--card-box-shadow);
+  z-index: 100;
 }
 #list details .itemDetails h5 {
   margin-bottom: .5em;
