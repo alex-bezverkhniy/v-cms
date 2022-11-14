@@ -7,14 +7,6 @@ import vweb
 
 // API //////////////////////////////////////////
 ['/api/users/'; get]
-pub fn (mut app App) all_users() vweb.Result {	
-	res := app.get_all_users() or { []User{} }
-	app.debug('all_users: $res')
-
-	return app.json(res)
-}
-
-['/api/usersq/'; get]
 pub fn (mut app App) all_usersq() vweb.Result {		
 	res := app.get_all_users_query(
 		app.query['order_by'], 

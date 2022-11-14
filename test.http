@@ -7,10 +7,10 @@ GET http://localhost:8080/api/users/
 
 
 ### Get all Users query ids
-GET http://localhost:8080/api/usersq/?order_by=username&order_type=desc&filter_by=id&filter_by_op=in&filter_by_val=(1,3)
+GET http://localhost:8080/api/users/?order_by=username&order_type=desc&filter_by=id&filter_by_op=in&filter_by_val=(1,3)
 
 ### Get all Users query username like
-GET http://localhost:8080/api/usersq/?order_by=username&order_type=desc&filter_by=username&filter_by_op=like&filter_by_val='%25as%25'
+GET http://localhost:8080/api/users/?order_by=username&order_type=desc&filter_by=username&filter_by_op=like&filter_by_val='%25as%25'
 
 
 ### Get User by id
