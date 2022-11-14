@@ -7,7 +7,8 @@ import vweb
 
 // API //////////////////////////////////////////
 ['/api/users/'; get]
-pub fn (mut app App) all_usersq() vweb.Result {		
+pub fn (mut app App) all_users() vweb.Result {		
+	app.debug('all_users query: ${app.query}')
 	res := app.get_all_users_query(
 		app.query['order_by'], 
 		app.query['order_type'],
@@ -96,6 +97,10 @@ pub fn (mut app App) admin_users() vweb.Result {
 	}
 	order_by := app.query['order_by']
 	order_type := if app.query['order_type'] == "asc" {"desc"} else {"asc"}
+	filter_by := app.query['filter_by']
+	filter_by_op := app.query['filter_by_op']
+	filter_by_val := app.query['filter_by_val']
+
 
     return $vweb.html()
 }

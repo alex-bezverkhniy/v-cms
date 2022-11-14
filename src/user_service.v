@@ -3,6 +3,21 @@ module main
 import crypto.bcrypt
 import time
 
+const (
+	columns_list = ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
+
+	operations = {
+		'neq': '!=', 
+		'eq': '=', 
+		'gt': '>', 
+		'lt': '<', 
+		'ge': '>=', 
+		'le': '<=', 
+		'like':'like', 
+		'in':'in'
+	}
+)
+
 pub fn (mut app App) get_users_count() ?int {
 	res := sql app.db {
 		select count from User
@@ -25,18 +40,6 @@ pub fn (mut app App) get_all_users_query(
 	filter_by string, filter_by_op string, filter_by_val string
 ) ?[]User {	
 	
-	columns_list := ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
-	//           !=     =     >     <     >=    <=    like
-	operations := {
-		'neq': '!=', 
-		'eq': '=', 
-		'gt': '>', 
-		'lt': '<', 
-		'ge': '>=', 
-		'le': '<=', 
-		'like':'like', 
-		'in':'in'
-	}
 	order_types_list := ['asc', 'desc']
 
 	// Protect from sql injections - 
@@ -50,7 +53,7 @@ app.debug('$filter_by_val = ${check_has_sql_injections(filter_by_val)}')
 
 	mut where := ""
 	if f_by != "" && f_by_op != "" {
-		where = 'where $f_by $f_by_op $f_by_val'
+		where = 'where $f_by ${operations[f_by_op]} $f_by_val'
 	}
 
 	query := 'select id, full_name, username, password, salt, email, avatar, created_at, updated_at, is_registered, is_blocked, is_admin from `User` $where order by $o_by $o_type'
