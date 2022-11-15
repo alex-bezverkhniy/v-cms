@@ -15,15 +15,6 @@ pub fn (mut app App) get_users_count() ?int {
 	return res
 }
 
-// deprecated
-pub fn (mut app App) get_all_users() ?[]User {
-	res := sql app.db {
-		select from User
-	} or { []User{} }
-
-	return res
-}
-
 pub fn (mut app App) get_all_users_query(
 	order_by string, order_type string,
 	filter_by string, filter_by_op string, filter_by_val string,
