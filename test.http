@@ -52,6 +52,10 @@ Content-Type: application/json
     "title": "vlang veasel"
 }
 
+### Get Image by id
+GET http://localhost:8080/api/images/1
+
+
 ### Get Posts count
 GET http://localhost:8080/api/count/posts
 
@@ -65,4 +69,6 @@ Content-Type: application/json
     "body": "test post body"
 }
 
+### Get Post by id
+GET http://localhost:8080/api/posts/1
 
