@@ -5,7 +5,6 @@ import log
 import sqlite
 import time
 import os
-import json
 
 const (
 	http_port          = 8080
@@ -28,19 +27,9 @@ fn main() {
 	C.sqlite3_config(3)
 
 	if os.args.contains('gen') {
-		println("generate")
+		println("generate:")
 
-		json_str := os.read_file('test/sample-schema.json') or {			
-			panic('cannot read json schema: $err')
-		}
-
-		mut schema := json.decode(Schema, json_str) or {
-			panic('cannot decode json schema: $err')			
-		}
-		generate_entities(mut schema, 'src')
-		generate_services(mut schema, 'src')
-		generate_routes(mut schema, 'src')
-		generate_common(mut schema, 'src')
+		generate_all('src', 'generated', true)
 
 		return
 	}

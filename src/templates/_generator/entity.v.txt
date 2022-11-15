@@ -3,7 +3,14 @@ module main
 import time
 
 struct $type_name {
-@for prop_name, prop_def in type_definition.properties        
-    $prop_name ${prop_def.type_name} ${prop_def.comment}
+    id int [primary; sql: serial]
+    created_at time.Time [sql_type: 'DATETIME']
+    updated_at time.Time [sql_type: 'DATETIME']
+    is_blocked bool 
+    author User [skip]
+
+    // Generated  fields  
+@for prop_name, prop_def in type_definition.properties
+    $prop_name ${prop_def.type_name} ${prop_def.comment}    
 @end
 }

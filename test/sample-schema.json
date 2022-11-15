@@ -7,32 +7,16 @@
             "title": "Posts",
             "additionalProperties": false,
             "properties": {
-                "id": {
-                    "type": "integer",
-                    "$comment": "[primary; sql: serial]"
-                },
                 "title": {
-                    "type": "string"
+                    "type": "string",
+                    "$comment": "[unique]"
                 },
                 "body": {
                     "type": "string"
                 },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "$comment": "[sql_type: 'DATETIME']"
-
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "$comment": "[sql_type: 'DATETIME']"                    
-                },
-                "is_blocked": {
-                    "type": "boolean"
-                },
-                "author": {
-                    "$ref": "#/definitions/Author"
+                "top_image": {
+                    "$ref": "#/definitions/Image",
+                    "$comment": "[skip]"
                 }
             },
             "required": [
@@ -45,68 +29,26 @@
                 "updated_at"
             ]            
         },
-        "Author": {
+        "Image": {
             "type": "object",
-            "title": "Authors",
+            "title": "Images",
             "additionalProperties": false,
             "properties": {
-                "id": {
-                    "type": "integer",
-                    "$comment": "[primary; sql: serial]"
-                },
-                "full_name": {
+                "url": {
                     "type": "string"
                 },
-                "username": {
+                "width": {
+                    "type": "integer"
+                },
+                "height": {
+                    "type": "integer"
+                },
+                "title": {
                     "type": "string",
                     "$comment": "[unique]"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "salt": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "avatar": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "$comment": "[sql_type: 'DATETIME']"
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "$comment": "[sql_type: 'DATETIME']"
-                },
-                "is_registered": {
-                    "type": "boolean"
-                },
-                "is_blocked": {
-                    "type": "boolean"
-                },
-                "is_admin": {
-                    "type": "boolean"
                 }
             },
-            "required": [
-                "avatar",
-                "created_at",
-                "email",
-                "full_name",
-                "id",
-                "is_admin",
-                "is_blocked",
-                "is_registered",
-                "password",
-                "salt",
-                "updated_at",
-                "username"
-            ]            
+            "required": ["url", "title"]            
         }
     }
 }

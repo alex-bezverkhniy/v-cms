@@ -2,13 +2,6 @@
 GET http://localhost:8080/api/count/users
 
 
-### Get Authors count
-GET http://localhost:8080/api/count/authors
-
-### Get Posts count
-GET http://localhost:8080/api/count/posts
-
-
 ### Get all Users
 GET http://localhost:8080/api/users/
 
@@ -45,3 +38,31 @@ Content-Type: application/json
     "password": "test",
     "is_admin": false
 }
+
+
+### Get Images count
+GET http://localhost:8080/api/count/images
+
+### Create new Image
+POST http://localhost:8080/api/images
+Content-Type: application/json
+
+{
+    "url": "https://vlang.io/img/veasel.png",
+    "title": "vlang veasel"
+}
+
+### Get Posts count
+GET http://localhost:8080/api/count/posts
+
+
+### Create new Post
+POST http://localhost:8080/api/posts/
+Content-Type: application/json
+
+{
+    "title": "test post",
+    "body": "test post body"
+}
+
+

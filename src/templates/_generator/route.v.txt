@@ -6,9 +6,24 @@ import vweb
 
 
 // ${type_definition.title} API //////////////////////////////////////////
-['/api/count/${type_definition.title.to_lower()}'; get]
-pub fn (mut app App) ${type_definition.title.to_lower()}_count() vweb.Result {
-	count := app.get_${type_definition.title.to_lower()}_count() or { 0 }
+
+['/api/count/${type_list_name}'; get]
+pub fn (mut app App) ${type_list_name}_count() vweb.Result {
+	count := app.get_${type_list_name}_count() or { 0 }
 
 	return app.json(count)
+}
+
+
+['/api/${type_list_name}/'; post]
+pub fn (mut app App) create_${type_name.to_lower()}() vweb.Result {	
+	o := json.decode(${type_name}, app.req.data) or {
+		return app.response_with_error('Failed to decode json, error: $err_var', 400, err)
+	}
+	
+	res := app.create_new_${type_name.to_lower()}(o) or { 
+		return app.response_with_error('Cannot create new ${type_name}', 503, err)
+	}
+
+	return app.json(res)
 }

@@ -88,16 +88,6 @@ app.debug('$filter_by_val = ${check_has_sql_injections(filter_by_val)}')
 	return res
 }
 
-// Move to Utils
-fn check_has_sql_injections(str string) bool {
-	restricted_keywords := ['select', 'update', 'delete', 'set', 'truncate', 'drop']
-	for w in restricted_keywords {
-		if str.to_upper().contains(w.to_upper()) {
-			return true
-		}
-	}
-	return false
-}
 
 pub fn (mut app App) create_new_user(u User) ?User {	
 	hashed_password := bcrypt.generate_from_password(u.password.bytes(), bcrypt.min_cost) or {

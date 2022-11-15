@@ -31,3 +31,12 @@ struct Schema {
 mut:
 	definitions map[string]TypeDefinition [json: definitions]
 }
+
+fn (td TypeDefinition) get_unique_prop() string {
+	for key, prop in td.properties {
+		if prop.comment == "[unique]" {
+			return key
+		}
+	}
+	return ""
+}

@@ -1,10 +1,8 @@
 module main
-
-import crypto.bcrypt
 import time
 
 const (
-	columns_${type_name.to_lower()}_list = ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
+	columns_${type_name.to_lower()}_list = @fields_list
 )
 
 pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
@@ -15,3 +13,24 @@ pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
 	return res
 }
 
+
+pub fn (mut app App) create_new_${type_name.to_lower()}(o $type_name) ?$type_name {	
+
+	new_obj := ${type_name} {
+    	...o
+		created_at: time.now()
+		updated_at:	time.now()
+	}
+
+	sql app.db {
+		insert new_obj into ${type_name}
+	} 
+	
+    res := sql app.db {
+		select from ${type_name} where ${unique_field} == ${unique_col} limit 1
+	} or {
+		return error('Cannot create new ${type_name}: $err_var')
+	}
+
+	return res
+}
