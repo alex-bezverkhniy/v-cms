@@ -5,17 +5,6 @@ import time
 
 const (
 	columns_list = ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
-
-	operations = {
-		'neq': '!=', 
-		'eq': '=', 
-		'gt': '>', 
-		'lt': '<', 
-		'ge': '>=', 
-		'le': '<=', 
-		'like':'like', 
-		'in':'in'
-	}
 )
 
 pub fn (mut app App) get_users_count() ?int {
