@@ -45,8 +45,7 @@ fn generate_entity_file(mut t_definition TypeDefinition, t_name string, f_path s
 	type_name := t_name
 	file_path := f_path
 	type_definition := t_definition
-	// println('generate file: $file_path, for type: $type_name')
-	// println('tag: ${type_definition.properties}')
+
 	content := $tmpl('templates/_generator/entity.v.txt')
 
 	os.write_file(file_path, content) or {

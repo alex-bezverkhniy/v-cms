@@ -13,7 +13,6 @@ pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
 	return res
 }
 
-
 pub fn (mut app App) create_new_${type_name.to_lower()}(o $type_name) ?$type_name {	
 
 	new_obj := ${type_name} {
@@ -31,6 +30,14 @@ pub fn (mut app App) create_new_${type_name.to_lower()}(o $type_name) ?$type_nam
 	} or {
 		return error('Cannot create new ${type_name}: $err_var')
 	}
+
+	return res
+}
+
+pub fn (mut app App) get_${type_name.to_lower()}_by_id(id int) ?$type_name {
+	res := sql app.db {
+		select from $type_name where id == id limit 1
+	} or { $type_name{} }
 
 	return res
 }
