@@ -4,9 +4,6 @@ import json
 
 import vweb
 
-const (
-	default_page_size = 10
-)
 
 // API //////////////////////////////////////////
 ['/api/users/'; get]
