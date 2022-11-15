@@ -1,0 +1,9 @@
+module main
+
+import time
+
+struct $type_name {
+@for prop_name, prop_def in type_definition.properties        
+    $prop_name ${prop_def.type_name} ${prop_def.comment}
+@end
+}
