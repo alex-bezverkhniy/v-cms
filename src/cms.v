@@ -37,7 +37,10 @@ fn main() {
 		mut schema := json.decode(Schema, json_str) or {
 			panic('cannot decode json schema: $err')			
 		}
-		generate_entities(mut schema, 'generated')
+		generate_entities(mut schema, 'src')
+		generate_services(mut schema, 'src')
+		generate_routes(mut schema, 'src')
+		generate_common(mut schema, 'src')
 
 		return
 	}
@@ -57,11 +60,20 @@ fn new_app() &App {
 
 	app.handle_static('src/static', true)
 	app.create_tables()
+	app.create_generated_tables()
 	
 	app.setup_logger()
 
 	return app
 }
+
+// TODO: generate this func
+// fn (mut app App) create_generated_tables() {
+// 	// sql app.db {
+// 	// 	create table Post
+// 	// 	create table Author
+// 	// }
+// }
 
 fn (mut app App) create_tables() {
 	sql app.db {

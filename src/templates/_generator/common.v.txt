@@ -1,0 +1,11 @@
+module main
+
+import sqlite
+
+fn (mut app App) create_generated_tables() {
+	sql app.db {
+        @for table_name in schema.definitions.keys()
+		create table $table_name
+        @end
+	}
+}

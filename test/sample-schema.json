@@ -1,9 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$ref": "#/definitions/Welcome1",
+    "$ref": "#/definitions/Welcome1",    
     "definitions": {
         "Post": {
             "type": "object",
+            "title": "Posts",
             "additionalProperties": false,
             "properties": {
                 "id": {
@@ -42,11 +43,11 @@
                 "is_blocked",
                 "title",
                 "updated_at"
-            ],
-            "title": "Welcome1"
+            ]            
         },
         "Author": {
             "type": "object",
+            "title": "Authors",
             "additionalProperties": false,
             "properties": {
                 "id": {
@@ -105,8 +106,7 @@
                 "salt",
                 "updated_at",
                 "username"
-            ],
-            "title": "Author"
+            ]            
         }
     }
 }

@@ -1,0 +1,14 @@
+module main
+
+import json
+
+import vweb
+
+
+// ${type_definition.title} API //////////////////////////////////////////
+['/api/count/${type_definition.title.to_lower()}'; get]
+pub fn (mut app App) ${type_definition.title.to_lower()}_count() vweb.Result {
+	count := app.get_${type_definition.title.to_lower()}_count() or { 0 }
+
+	return app.json(count)
+}

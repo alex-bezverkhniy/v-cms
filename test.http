@@ -2,6 +2,13 @@
 GET http://localhost:8080/api/count/users
 
 
+### Get Authors count
+GET http://localhost:8080/api/count/authors
+
+### Get Posts count
+GET http://localhost:8080/api/count/posts
+
+
 ### Get all Users
 GET http://localhost:8080/api/users/
 

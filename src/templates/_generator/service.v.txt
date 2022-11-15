@@ -1,0 +1,17 @@
+module main
+
+import crypto.bcrypt
+import time
+
+const (
+	columns_${type_name.to_lower()}_list = ['id', 'full_name', 'username', 'password', 'salt', 'email', 'avatar', 'created_at', 'updated_at', 'is_registered', 'is_blocked', 'is_admin']
+)
+
+pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
+	res := sql app.db {
+		select count from $type_name
+	}
+
+	return res
+}
+

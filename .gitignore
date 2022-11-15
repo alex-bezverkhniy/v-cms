@@ -14,3 +14,4 @@ v-cms
 *.iml
 cms.sqlite
 *.log
+generated_*.v
