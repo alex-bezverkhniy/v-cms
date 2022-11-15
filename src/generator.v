@@ -71,9 +71,15 @@ fn generate_service_file(mut t_definition TypeDefinition, t_name string, f_path 
 	file_path := f_path
 	type_definition := t_definition
 	fields_list := t_definition.properties.keys()
+	mut update_fields_list := t_definition.properties.keys()
 	unique_field := t_definition.get_unique_prop()
 	unique_col := 'o.${unique_field}'
-	
+	type_name_lo := t_name.to_lower()
+
+	for mut f in update_fields_list {
+		f = 'new_o.$f'
+	}
+
 
 	content := $tmpl('templates/_generator/service.v.txt')
 

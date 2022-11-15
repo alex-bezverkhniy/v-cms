@@ -2,7 +2,7 @@ module main
 import time
 
 const (
-	columns_${type_name.to_lower()}_list = @fields_list
+	columns_${type_name_lo}_list = @fields_list
 )
 
 pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
@@ -13,7 +13,7 @@ pub fn (mut app App) get_${type_definition.title.to_lower()}_count() ?int {
 	return res
 }
 
-pub fn (mut app App) create_new_${type_name.to_lower()}(o $type_name) ?$type_name {	
+pub fn (mut app App) create_new_${type_name_lo}(o $type_name) ?$type_name {	
 
 	new_obj := ${type_name} {
     	...o
@@ -34,10 +34,45 @@ pub fn (mut app App) create_new_${type_name.to_lower()}(o $type_name) ?$type_nam
 	return res
 }
 
-pub fn (mut app App) get_${type_name.to_lower()}_by_id(id int) ?$type_name {
+pub fn (mut app App) get_${type_name_lo}_by_id(id int) ?$type_name {
 	res := sql app.db {
 		select from $type_name where id == id limit 1
 	} or { $type_name{} }
+
+	return res
+}
+
+
+pub fn (mut app App) update_${type_name_lo}_by_id(id int, o ${type_name}) ?${type_name} {	
+	old_o := app.get_${type_name_lo}_by_id(id) or {
+		return error('Cannot update ${type_name}: $err_var')
+	}
+
+	if old_o.id == 0 {
+		return error('${type_name} not found')
+	}
+	
+	new_o := ${type_name} {
+        ...o
+		id: id		
+        updated_at:	time.now()				
+	}
+
+	sql app.db {
+		update ${type_name} set 
+            @for i, f in fields_list
+            $f = ${update_fields_list[i]},
+            @end
+            updated_at = new_o.updated_at, 
+            is_blocked = new_o.is_blocked
+        where id == id
+	} 
+
+	res := sql app.db {
+		select from ${type_name} where ${unique_field} == ${unique_col} limit 1
+	} or {
+		return error('Cannot update ${type_name}: $err_var')
+	}
 
 	return res
 }
