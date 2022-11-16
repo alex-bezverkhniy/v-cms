@@ -49,7 +49,7 @@ fn new_app() &App {
 
 	app.handle_static('src/static', true)
 	app.create_tables()
-	// app.create_generated_tables()
+	app.create_generated_tables()
 	
 	app.setup_logger()
 

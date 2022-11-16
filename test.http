@@ -74,6 +74,9 @@ Content-Type: application/json
     "title": "vlang veasel - updated"
 }
 
+### Get all Images
+GET http://localhost:8080/api/images/?order_by=title&order_type=desc
+
 
 ## Posts API  ###################################################################
 
@@ -105,3 +108,6 @@ Content-Type: application/json
     "body": "test post body",
     "top_image_id": 1
 }
+
+### Get all Posts
+GET http://localhost:8080/api/posts/?order_by=title&order_type=desc
