@@ -15,6 +15,7 @@ struct PropertyDefinition {
 	description string [json: description]
 	comment string [json: "\$comment"]	
 	format string [json: "format"]
+	placeholder string 
 }
 
 struct TypeDefinition {

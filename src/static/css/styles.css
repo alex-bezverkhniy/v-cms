@@ -2,7 +2,7 @@
   border: 0;
   padding-bottom: 0;
   margin-bottom: 0;
-  width: 10em;
+  width: 17em;
 }
 #list td>details summary {
   padding: 0.2em;
@@ -15,7 +15,7 @@
   position: absolute;
   border: 1px solid var(--form-element-border-color);
   background-color: var(--card-background-color);
-  width: 20em;
+  width: 25em;
   max-width: 30em;
   /* margin: var(--block-spacing-vertical) 0; */
   padding: 1em;
@@ -45,7 +45,9 @@
 #list a .paginationBtn {
   max-width: 3em;
 }
-
+#form label, #form h2, #list h2 {
+  text-transform: capitalize;
+}
 .container {
   padding-top: 4em;
   padding-left: 2em;

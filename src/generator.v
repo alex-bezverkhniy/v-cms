@@ -170,7 +170,7 @@ fn generate_admin_page(t_definition TypeDefinition, t_name string, f_path string
 	filter_by_val_plsh := '\$filter_by_val'
 	item_plsh :=  '\${item'
 	items_list_len_plsh := '\${items_list.len}'
-	
+	edit_item_plsh := '\${edit_item'
 
 	type_name := t_name
 	file_path := f_path
@@ -178,7 +178,21 @@ fn generate_admin_page(t_definition TypeDefinition, t_name string, f_path string
 	type_list_name := type_definition.title.to_lower()	
 	type_name_lo := t_name.to_lower()
 	unique_field := type_definition.get_unique_prop()
-	unique_item := '\${item.${unique_field}}'
+	unique_item_plsh := '\${item.${unique_field}}'
+	
+
+	mut items_plsh := map[string]PropertyDefinition
+	for k, prop in type_definition.properties {
+		new_key := k.replace("_", " ")
+
+		items_plsh[new_key] = PropertyDefinition {
+			...prop
+			placeholder: '\${edit_item.$k}'
+		}
+	}
+
+
+	columns_item_list_plsh := '\${columns_${type_name_lo}_list}'
 
 	content := $tmpl('templates/_generator/page.html.razor')
 
