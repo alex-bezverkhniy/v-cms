@@ -74,3 +74,39 @@ pub fn (mut app App) all_${type_list_name}() vweb.Result {
 
 	return app.json(res)
 }
+
+
+// ${type_definition.title} Pages ////////////////////////////////////////
+
+
+['/admin/${type_list_name}'; get]
+pub fn (mut app App) admin_${type_list_name}() vweb.Result {
+	items_list := app.get_all_${type_list_name}_query(
+		app.query['order_by'], 
+		app.query['order_type'],
+		app.query['filter_by'],
+		app.query['filter_by_op'],
+		app.query['filter_by_val'],
+		app.query['page_size'].int(),
+		app.query['page_num'].int(),
+	) or {[]${type_name} {}} 
+
+	item_id := app.query['item_id']
+	mut edit_item := ${type_name}  {}
+	is_edit_item := item_id != ""
+
+	if is_edit_item {
+		id := item_id.int()
+		edit_item = app.get_${type_name_lo}_by_id(id) or {${type_name} {}} 		
+	}
+	order_by := app.query['order_by']
+	order_type := if app.query['order_type'] == "asc" {"desc"} else {"asc"}
+	filter_by := app.query['filter_by']
+	filter_by_op := app.query['filter_by_op']
+	filter_by_val := app.query['filter_by_val']
+	page_size := if app.query['page_size'].int() == 0 {default_page_size} else {app.query['page_size'].int()}
+	page_num := if app.query['page_num'].int() == 0 {1} else {app.query['page_num'].int()}
+	total_rows := app.get_${type_list_name}_count() or {0}
+
+    return ${vweb_plsh}.html()
+}

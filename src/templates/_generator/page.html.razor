@@ -1,0 +1,217 @@
+<!-- THIS IS GENERATED CONTENT -->
+${include_header_plsh}
+<article class="container" id="list">
+    <hgroup>
+        <h2>Users list</h2>
+        <h3>Total rows: ${total_rows_pslh}</h3>
+    </hgroup>    
+    <details>
+        <summary  role="button">            
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+            </svg>
+            Filter list
+        </summary>
+        <form action="/admin/${type_list_name}/?order_by=${order_by_plsh}&order_type=${order_type_plsh}" method="get">
+            <div class="grid">
+                <label for="filter_by">Filter By
+                <select id="filter_by" name="filter_by" required>
+                    <option value="" selected>Select a column</option>
+                    ${for_plsh} col in columns_list
+                    <option value="${col_plsh}" 
+                    ${if_plsh} col == filter_by  
+                        selected 
+                    ${end_plsh}
+                    >${col_plsh}</option>                    
+                    ${end_plsh}
+                </select>
+                </label>
+            
+                <label for="filter_by_op">Operation
+                <select id="filter_by_op" name="filter_by_op" required>                        
+                    <option value="" selected>Select a operation</option>
+                    ${for_plsh} key, val in operations
+                    <option value="${key_plsh}"
+                    ${if_plsh} key == filter_by_op  
+                        selected 
+                    ${end_plsh}
+                    >${val_plsh}</option>
+                    ${end_plsh}
+                </select>
+                </label>
+    
+                <label for="filter_by_val">
+                    Filter by value
+                    <input type="text" id="filter_by_val" name="filter_by_val" placeholder="Last name" value="${filter_by_val_plsh}" required>
+                </label>
+
+            </div>
+            <div class="grid">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+                <a href="/admin/${type_list_name}" role="button" style="max-height: 3.1em;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>                        
+                </a>
+            </div>
+        </form>
+        </details>    
+    <figure>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>
+                        <a href="/admin/${type_list_name}/?order_by=${unique_field}&order_type=${order_type_plsh}" 
+                        ${if_plsh} order_by == "${unique_field}" 
+                        class="contrast"
+                        ${end_plsh}
+                        ><span style="text-transform: capitalize">${unique_field}</span>
+                            ${if_plsh} order_type == "desc" && order_by == "${unique_field}"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            ${else_plsh}                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            ${end_plsh}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="/admin/${type_list_name}/?order_by=created_at&order_type=${order_type_plsh}" 
+                        ${if_plsh} order_by == "created_at" 
+                        class="contrast"
+                        ${end_plsh} 
+                        >Created at 
+                            ${if_plsh} order_type == "desc" && order_by == "created_at"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            ${else_plsh}                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            ${end_plsh}
+                        </a>                        
+                    </th>
+                    <th>                        
+                        <a href="/admin/${type_list_name}/?order_by=updated_at&order_type=${order_type_plsh}" 
+                        ${if_plsh} order_by == "updated_at" 
+                        class="contrast"
+                        ${end_plsh} 
+                        >Updated at 
+                            ${if_plsh} order_type == "desc" && order_by == "updated_at"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            ${else_plsh}                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            ${end_plsh}
+                        </a>                         
+                    </th>
+                    <th>                        
+                        <a href="/admin/${type_list_name}/?order_by=is_blocked&order_type=${order_type_plsh}" 
+                        ${if_plsh} order_by == "is_blocked" 
+                        class="contrast"
+                        ${end_plsh} 
+                        >Status 
+                            ${if_plsh} order_type == "desc" && order_by == "is_blocked"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg> 
+                            ${else_plsh}                            
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            ${end_plsh}
+                        </a>                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                ${for_plsh} i, item in items_list
+                <tr>
+                    <td>${i_plsh}+1}</td>
+                    <td>
+                        <details>
+                            <summary role="button" class="contrast">${unique_item}</summary>
+                            <div class="itemDetails">
+                                <h5>User details:</h5>
+                                <ul>
+                                    <li><b>id:</b> ${item_plsh}.id}</li>
+
+                                    <li><b>${unique_field}:</b> ${unique_item}</li>
+
+                                    <li><b>is_blocked:</b> ${item_plsh}.is_blocked}</li>
+
+                                    <li><b>created_at:</b> ${item_plsh}.created_at}
+                                    <li><b>updated_at:</b> ${item_plsh}.updated_at}  
+                                </ul>
+                            </div>
+                        </details>
+                    </td>
+                    <td><a href="/admin/${type_list_name}/?${type_name_lo}_id=${item_plsh}.id}#form">${unique_item}</a></td>
+                    <td>${item_plsh}.created_at}</td>
+                    <td>${item_plsh}.updated_at}</td>
+                    <td>
+                        ${if_plsh} !item.is_blocked
+                        <a data-tooltip="active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                              </svg>
+                        </a>
+                        ${else_plsh}
+                        <a data-tooltip="blocked">
+                            <svg  width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                <circle cy="8" cx="8" r="6.25"/>
+                                <line x1="4.25" x2="12.25" y1="11.75" y2="3.75"/>
+                                </svg>
+                        </a >
+                        ${end_plsh}
+                    </td>
+                </tr>
+                ${end_plsh}
+            </tbody>
+            <tfoot>
+                <div class="grid">
+                    <span><b>page size:</b> <code>${page_size_plsh}</code></span>
+                    <span><b>page number:</b> <code>${page_num_plsh}</code></span>
+                    <span><b>total rows selected:</b> <code>${items_list_len_plsh}</code></span>
+                </div>
+            </tfoot>
+        </table>
+        <div class="grid">
+            <a href="/admin/${type_list_name}?page_size=${page_size_plsh}&page_num=${page_num2_plsh}-1}" role="button" class="secondary"
+            ${if_plsh} page_num <= 1
+                disabled
+            ${end_plsh}
+            >                
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+                    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+                </svg>
+                prev page
+            </a>
+            <a href="/admin/${type_list_name}/?page_size=${page_size_plsh}&page_num=${page_num2_plsh}+1}"  role="button" class="secondary"
+            ${if_plsh} page_num >= total_rows / page_size
+                disabled
+            ${end_plsh}            
+            >
+                next page
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+                </svg>
+            </a>
+        </div>
+    </figure>
+</article>
+
+
+${include_footer_plsh}

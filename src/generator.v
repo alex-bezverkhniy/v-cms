@@ -39,6 +39,7 @@ fn generate_all(path string, prefix string, cleanup_beore bool) {
 		generate_services(schema, path, prefix)
 		generate_routes(schema, path, prefix)
 		generate_common(schema, path, prefix)
+		generate_admin_pages(schema, '${path}/templates/admin', prefix)
  }
 
 fn generate_entity_file(t_definition TypeDefinition, t_name string, f_path string) {
@@ -115,6 +116,7 @@ fn generate_route_file(t_definition TypeDefinition, t_name string, f_path string
 	type_definition := update_vlang_types(t_definition)
 	type_list_name := type_definition.title.to_lower()	
 	type_name_lo := t_name.to_lower()
+	vweb_plsh := '\$vweb'
 
 	content := $tmpl('templates/_generator/route.v.txt')
 
@@ -140,6 +142,52 @@ fn generate_common(sch Schema, path string, prefix string) {
 	}
 	println('$f_path - generated')
 }
+
+fn generate_admin_pages(schema Schema, path string, prefix string) {
+	for type_name, type_definition in schema.definitions {
+		generate_admin_page(type_definition, type_name, '$path/${type_definition.title.to_lower()}.html')
+	}
+} 
+
+fn generate_admin_page(t_definition TypeDefinition, t_name string, f_path string) {
+	include_header_plsh := '@include \'header.html\''
+	include_footer_plsh := '@include \'footer.html\''
+	total_rows_pslh := '\${total_rows}'
+	for_plsh := '@for'
+	end_plsh := '@end'
+	if_plsh := '@if'
+	else_plsh := '@else'
+	order_by_plsh := '\${order_by}'
+	order_type_plsh := '\$order_type'
+	at_order_type_plsh := '@order_type'
+	col_plsh := '\$col'
+	key_plsh := '\$key'
+	val_plsh := '\$val'
+	i_plsh := '\${i'
+	page_size_plsh := '\$page_size'
+	page_num_plsh := '\$page_num'
+	page_num2_plsh := '\${page_num'
+	filter_by_val_plsh := '\$filter_by_val'
+	item_plsh :=  '\${item'
+	items_list_len_plsh := '\${items_list.len}'
+	
+
+	type_name := t_name
+	file_path := f_path
+	type_definition := update_vlang_types(t_definition)
+	type_list_name := type_definition.title.to_lower()	
+	type_name_lo := t_name.to_lower()
+	unique_field := type_definition.get_unique_prop()
+	unique_item := '\${item.${unique_field}}'
+
+	content := $tmpl('templates/_generator/page.html.razor')
+
+	os.write_file(file_path, content) or {
+		eprintln("cannot generate file: $file_path, error: $err")
+	}
+	println('$f_path - generated')
+}
+
 
 fn update_vlang_types(t_definition TypeDefinition) TypeDefinition {
 	mut type_definition := t_definition
