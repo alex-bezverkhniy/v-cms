@@ -1,3 +1,5 @@
+## Users API ###################################################################
+
 ### Get Users count
 GET http://localhost:8080/api/count/users
 
@@ -8,6 +10,7 @@ GET http://localhost:8080/api/users/
 
 ### Get all Users query ids
 GET http://localhost:8080/api/users/?order_by=username&order_type=desc&filter_by=id&filter_by_op=in&filter_by_val=(1,3)
+
 
 ### Get all Users query username like
 GET http://localhost:8080/api/users/?order_by=username&order_type=desc&filter_by=username&filter_by_op=like&filter_by_val='%25as%25'
@@ -28,6 +31,7 @@ Content-Type: application/json
     "is_admin": true
 }
 
+
 ### Update new User
 PUT http://localhost:8080/api/users/1
 Content-Type: application/json
@@ -40,8 +44,12 @@ Content-Type: application/json
 }
 
 
+## Images API  ###################################################################
+
+
 ### Get Images count
 GET http://localhost:8080/api/count/images
+
 
 ### Create new Image
 POST http://localhost:8080/api/images
@@ -52,8 +60,22 @@ Content-Type: application/json
     "title": "vlang veasel"
 }
 
+
 ### Get Image by id
-GET http://localhost:8080/api/images/2
+GET http://localhost:8080/api/images/1
+
+
+### Update Image by id
+PUT http://localhost:8080/api/images/1
+Content-Type: application/json
+
+{
+    "url": "https://vlang.io/img/veasel.png",
+    "title": "vlang veasel - updated"
+}
+
+
+## Posts API  ###################################################################
 
 
 ### Get Posts count
@@ -65,10 +87,21 @@ POST http://localhost:8080/api/posts/
 Content-Type: application/json
 
 {
-    "title": "test post2",
-    "body": "test post body"
+    "title": "test post",
+    "body": "test post body",
+    "top_image_id": 1
 }
 
 ### Get Post by id
 GET http://localhost:8080/api/posts/1
 
+
+### Update Post by id
+PUT http://localhost:8080/api/posts/1
+Content-Type: application/json
+
+{
+    "title": "test post - updated",
+    "body": "test post body",
+    "top_image_id": 1
+}
