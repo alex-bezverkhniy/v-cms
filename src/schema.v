@@ -10,7 +10,6 @@ const types_map = {
 
 
 struct PropertyDefinition {
-mut:
 	type_name string [json: 'type']
 	ref string [json: "\$ref"]
 	description string [json: description]
@@ -19,7 +18,6 @@ mut:
 }
 
 struct TypeDefinition {
-mut:
 	type_name string [json: 'type']
 	title string [json: title]
 	additional_properties bool [json: additionalProperties]
@@ -28,7 +26,6 @@ mut:
 }
 
 struct Schema {
-mut:
 	definitions map[string]TypeDefinition [json: definitions]
 }
 
