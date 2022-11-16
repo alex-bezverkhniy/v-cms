@@ -57,3 +57,20 @@ pub fn (mut app App) update_${type_name_lo}(${type_name_lo}_id int) vweb.Result 
 
 	return app.json(res)
 }
+
+
+['/api/${type_list_name}/'; get]
+pub fn (mut app App) all_${type_list_name}() vweb.Result {		
+	
+	res := app.get_all_${type_list_name}_query(
+		app.query['order_by'], 
+		app.query['order_type'],
+		app.query['filter_by'],
+		app.query['filter_by_op'],
+		app.query['filter_by_val'],
+		app.query['page_size'].int(),
+		app.query['page_num'].int(),
+	) or { []${type_name}{} }
+
+	return app.json(res)
+}
