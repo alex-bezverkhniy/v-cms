@@ -110,3 +110,47 @@ pub fn (mut app App) admin_${type_list_name}() vweb.Result {
 
     return ${vweb_plsh}.html()
 }
+
+/*
+['/admin/${type_list_name}'; post]
+pub fn (mut app App) admin_edit_${type_name}() vweb.Result {
+
+	id := app.form['id']
+	full_name :=  app.form['full_name']
+	username :=  app.form['username']
+	password :=  app.form['password']
+	email :=  app.form['email']
+	is_registered := 'is_registered' in app.form
+	is_blocked := 'is_blocked' in app.form
+	is_admin := 'is_admin' in app.foritem := id.int()
+	item_id := id.int()
+	//TODO: Validate fields
+
+	user := User{
+		id: item_id,
+		full_name: full_name, 
+		username: username, 
+		password: password, 
+		is_registered: is_registered, 
+		is_blocked: is_blocked, 
+		is_admin: is_admin, 
+		email: email 
+		}
+		
+	
+	if item_id != 0 {
+		app.info('update user')
+
+		app.update_user_by_id(item_id, user) or {
+			app.error('cannot update user: ' + user)
+		}
+
+	} else { 		
+		app.create_new_user(user) or {
+			app.error('cannot create new user')
+		}
+	}
+
+    return app.redirect('/admin/${type_list_name}')
+}
+*/
