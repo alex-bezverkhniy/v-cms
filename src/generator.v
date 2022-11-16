@@ -117,6 +117,7 @@ fn generate_route_file(t_definition TypeDefinition, t_name string, f_path string
 	type_list_name := type_definition.title.to_lower()	
 	type_name_lo := t_name.to_lower()
 	vweb_plsh := '\$vweb'
+	fields_list := type_definition.properties.keys()
 
 	content := $tmpl('templates/_generator/route.v.txt')
 

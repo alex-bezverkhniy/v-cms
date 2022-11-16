@@ -111,46 +111,42 @@ pub fn (mut app App) admin_${type_list_name}() vweb.Result {
     return ${vweb_plsh}.html()
 }
 
-/*
 ['/admin/${type_list_name}'; post]
-pub fn (mut app App) admin_edit_${type_name}() vweb.Result {
-
+pub fn (mut app App) admin_edit_${type_name_lo}() vweb.Result {
+	@for fld in fields_list
+	$fld := app.form['${fld}']
+	@end
 	id := app.form['id']
-	full_name :=  app.form['full_name']
-	username :=  app.form['username']
-	password :=  app.form['password']
-	email :=  app.form['email']
-	is_registered := 'is_registered' in app.form
 	is_blocked := 'is_blocked' in app.form
-	is_admin := 'is_admin' in app.foritem := id.int()
+
 	item_id := id.int()
 	//TODO: Validate fields
 
-	user := User{
+	item := ${type_name}{
+	@for fld in fields_list
+		@if fld.ends_with('_id') 
+		$fld: ${fld}.int(),
+		@else		
+		$fld: ${fld},
+		@end
+	@end
 		id: item_id,
-		full_name: full_name, 
-		username: username, 
-		password: password, 
-		is_registered: is_registered, 
-		is_blocked: is_blocked, 
-		is_admin: is_admin, 
-		email: email 
-		}
+		is_blocked: is_blocked
+	}
 		
 	
 	if item_id != 0 {
-		app.info('update user')
+		app.info('update ${type_name_lo}')
 
-		app.update_user_by_id(item_id, user) or {
-			app.error('cannot update user: ' + user)
+		app.update_${type_name_lo}_by_id(item_id, item) or {
+			app.error('cannot update ${type_name_lo}')
 		}
 
 	} else { 		
-		app.create_new_user(user) or {
-			app.error('cannot create new user')
+		app.create_new_${type_name_lo}(item) or {
+			app.error('cannot create new ${type_name_lo}')
 		}
 	}
 
     return app.redirect('/admin/${type_list_name}')
 }
-*/
