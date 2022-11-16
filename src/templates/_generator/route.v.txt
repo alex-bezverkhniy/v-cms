@@ -35,3 +35,27 @@ pub fn (mut app App) ${type_name_lo}_by_id(${type_name_lo}_id int ) vweb.Result 
 	}
 	return app.json(res)
 }
+
+/*
+['/api/${type_list_name}/:${type_name_lo}_id'; put]
+pub fn (mut app App) update_${type_name_lo}(${type_name_lo}_id int) vweb.Result {	
+	old_obl :=app.get_user_by_id(${type_name_lo}_id) or {
+		return app.response_with_error('${type_name} not found', 404, err)
+	}
+
+	if old_obl.id == 0 {
+		return app.response_with_error('${type_name} not found', 404, error("${type_name} not found"))
+	}
+
+	u := json.decode(${type_name}, app.req.data) or {
+		return app.response_with_error('Failed to decode json, error: $err_var', 400, err)
+	}
+	
+
+	res := app.update_user_by_id(${type_name_lo}_id, u) or { 
+		return app.response_with_error('Cannot create new ${type_name}', 503, err)
+	}
+
+	return app.json(res)
+}
+*/

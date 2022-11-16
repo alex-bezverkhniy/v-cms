@@ -57,10 +57,15 @@ fn generate_entity_file(mut t_definition TypeDefinition, t_name string, f_path s
 fn generate_entities(mut schema Schema, path string, prefix string) {
 	for type_name, mut type_definition in schema.definitions {		
 		// Update with vlang types
-		for _, mut prop in type_definition.properties {
-			key := if prop.format == "" { prop.type_name } else { '${prop.type_name}_${prop.format}' }
-			i := prop.ref.last_index('/') or {0}
-			prop.type_name = if types_map[key] != "" { types_map[key] } else { prop.ref[(i+1)..prop.ref.len] or {""} }
+		for name, mut prop in type_definition.properties {
+			key := if prop.format == "" { prop.type_name } else { '${prop.type_name}_${prop.format}' }			
+			if prop.ref != "" {				
+				type_definition.properties.delete(name)
+				prop.type_name = "int"
+				type_definition.properties['${name}_id'] = prop 
+			} else {
+				prop.type_name = types_map[key]
+			}
 		}
 		generate_entity_file(mut type_definition, type_name, '$path/${prefix}_${type_name.to_lower()}_entities.v')
 	}

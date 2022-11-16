@@ -15,8 +15,7 @@
                     "type": "string"
                 },
                 "top_image": {
-                    "$ref": "#/definitions/Image",
-                    "$comment": "[skip]"
+                    "$ref": "#/definitions/Image"                    
                 }
             },
             "required": [
