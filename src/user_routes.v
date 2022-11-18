@@ -76,6 +76,40 @@ pub fn (mut app App) users_count() vweb.Result {
 	return app.json(count)
 }
 
+['/api/schema/users'; get]
+pub fn (mut app App) users_schema() vweb.Result {
+	s := app.schema.definitions['User']
+	mut hydrated_props := map[string]PropertyDefinition{}
+
+	hydrated_props['id'] = PropertyDefinition{
+		type_name: 'integer',
+		is_hidden: true
+	}
+	hydrated_props['created_at'] = PropertyDefinition{
+		type_name: 'string',
+		format: 'date-time'
+		is_hidden: true
+	}
+	hydrated_props['updated_at'] = PropertyDefinition{
+		type_name: 'string',
+		format: 'date-time'
+		is_hidden: true
+	}
+	hydrated_props['is_admin'] = PropertyDefinition{
+		type_name: 'boolean',		
+		is_hidden: true
+	}
+	for k, p in s.properties {
+		hydrated_props[k] = p
+	}
+
+	hydrated_schema := TypeDefinition {
+		...s,
+		properties: hydrated_props,		
+	}
+	return app.json(hydrated_schema)
+}
+
 // Pages ////////////////////////////////////////
 
 ['/admin/users'; get]

@@ -5,6 +5,7 @@ import log
 import sqlite
 import time
 import os
+import json
 
 const (
 	http_port          = 8080
@@ -18,6 +19,7 @@ pub mut:
 mut:
 	version       string        [vweb_global]
 	logger        log.Log       [vweb_global]
+	schema 		  Schema 		[vweb_global]
 }
 
 fn C.sqlite3_config(int)
@@ -52,6 +54,14 @@ fn new_app() &App {
 	app.create_generated_tables()
 	
 	app.setup_logger()
+
+	// load schema (metadata)
+	json_str := os.read_file('schema.json') or {			
+		panic('cannot read json schema: $err')	
+	}
+ 	app.schema = json.decode(Schema, json_str) or {
+		panic('cannot decode json schema: $err')			
+	}
 
 	return app
 }

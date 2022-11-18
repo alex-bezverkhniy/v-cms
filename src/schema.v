@@ -16,6 +16,7 @@ struct PropertyDefinition {
 	comment string [json: "\$comment"]	
 	format string [json: "format"]
 	placeholder string 
+	is_hidden bool [json: 'is_hidden']
 }
 
 struct TypeDefinition {

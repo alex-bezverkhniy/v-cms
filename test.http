@@ -5,7 +5,11 @@ GET http://localhost:8080/api/count/users
 
 
 ### Get all Users
-GET http://localhost:8080/api/users/
+GET http://localhost:8080/api/schema/users/
+
+
+### Get all Users
+GET http://localhost:8080/api/users/?order_by=username&order_type=asc
 
 
 ### Get all Users query ids
@@ -25,8 +29,8 @@ POST http://localhost:8080/api/users/
 Content-Type: application/json
 
 {
-    "full_name": "alex",
-    "username": "alex",
+    "full_name": "galina",
+    "username": "galina",
     "password": "test",
     "is_admin": true
 }
@@ -37,10 +41,11 @@ PUT http://localhost:8080/api/users/1
 Content-Type: application/json
 
 {
-    "full_name": "full_name",
-    "username": "test",
+    "full_name": "Alex Bez",
+    "username": "alex",
     "password": "test",
-    "is_admin": false
+    "email": "alex@email.com",
+    "is_admin": true
 }
 
 
